@@ -71,7 +71,7 @@ git clone https://github.com/developersatish/restaurantRating.git
    npm start
    ```
 
-   The application will be available at `http://localhost:4200`.
+   The application will be available at `http://localhost:45763`.
 
 7. Run Tests
 
