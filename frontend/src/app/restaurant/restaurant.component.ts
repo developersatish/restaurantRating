@@ -35,10 +35,14 @@ export class RestaurantComponent implements OnInit {
       data: { restaurant: {} }
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result: Restaurant) => {
       if (result) {
-        this.restaurantService.addRestaurant(result);
-        this.loadRestaurants();
+        if (!result.id) {
+          result.id = this.restaurants.length + 1;
+        }
+        this.restaurantService.addRestaurant(result).subscribe(_ => {
+          this.loadRestaurants();
+        });
       }
     });
   }
@@ -51,15 +55,21 @@ export class RestaurantComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.restaurantService.updateRestaurant(result);
-        this.loadRestaurants();
+        this.restaurantService.updateRestaurant(result).subscribe(_ => {
+          this.loadRestaurants();
+        });
       }
     });
   }
 
   deleteRestaurant(id: number): void {
-    this.restaurantService.deleteRestaurant(id);
-    this.loadRestaurants();
+    var result = confirm("Are you sure you want to delete this restaurant?");
+    if (result) {
+      this.restaurantService.deleteRestaurant(id).subscribe(_ => {
+        this.loadRestaurants();
+      });
+    }
+
   }
 
   openRatingDialog(restaurant: Restaurant): void {
@@ -69,9 +79,22 @@ export class RestaurantComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
+      console.log(result);
       if (result) {
-        this.restaurantService.addComment(restaurant.id, result.rating, result.text);
-        this.loadRestaurants();
+        const restaurant = this.restaurants.find(t => t.id == result.restaurantId);
+        if (!restaurant.averageRatings) {
+          restaurant.averageRatings = [];
+        }
+        const comment: Rating = {
+          date: new Date(),
+          rating: result.rating,
+          text: result.text
+        }
+        restaurant.averageRatings.push(comment);
+        console.log(restaurant);
+        this.restaurantService.updateRestaurant(restaurant).subscribe(_ => {
+          this.loadRestaurants();
+        });
       }
     });
   }
@@ -82,5 +105,5 @@ export class RestaurantComponent implements OnInit {
     }
     const sum = ratings.reduce((a, b) => a + b.rating, 0);
     return sum / ratings.length;
-  }  
+  }
 }

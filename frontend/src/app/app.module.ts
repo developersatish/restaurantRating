@@ -8,6 +8,7 @@ import { RestaurantDialogComponent } from './restaurant/restaurant-dialog/restau
 import { RatingDialogComponent } from './restaurant/rating-dialog/rating-dialog.component';
 import { RestaurantComponent } from './restaurant/restaurant.component';
 import { MatDialogModule, MatFormFieldModule, MatInputModule, MatButtonModule } from '@angular/material';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -19,6 +20,7 @@ import { MatDialogModule, MatFormFieldModule, MatInputModule, MatButtonModule } 
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MatDialogModule,

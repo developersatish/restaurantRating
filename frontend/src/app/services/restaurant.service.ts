@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 export interface Rating {
   rating: number;
@@ -13,55 +14,37 @@ export interface Restaurant {
   address: string;
   description: string;
   hours: string;
-  averageRatings: Rating[]; // Changed to Comment[]
+  averageRatings: Rating[];
 }
+const baseUrl = 'https://5it5qauo4j.execute-api.ap-south-1.amazonaws.com/Prod';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RestaurantService {
-  private restaurants: Restaurant[] = [
-    {
-      id: 1,
-      name: 'Restaurant A',
-      address: '123 Main St',
-      description: 'Cozy place with delicious food',
-      hours: '9:00 AM - 10:00 PM',
-      averageRatings: [
-        { rating: 4, text: 'Great food!', date: new Date() },
-        { rating: 5, text: 'Excellent service!', date: new Date() }
-      ]
-    },
-    // Add more sample restaurants as needed
-  ];
+  private apiUrl = `${baseUrl}/api/restaurant`;
+
+  constructor(private http: HttpClient) { }
 
   getRestaurants(): Observable<Restaurant[]> {
-    return of(this.restaurants);
+    return this.http.get<Restaurant[]>(this.apiUrl);
   }
 
-  addRestaurant(restaurant: Restaurant): void {
-    restaurant.id = this.restaurants.length + 1;
-    this.restaurants.push(restaurant);
+  addRestaurant(restaurant: Restaurant): Observable<Restaurant> {
+    return this.http.post<Restaurant>(this.apiUrl, restaurant);
   }
 
-  updateRestaurant(updatedRestaurant: Restaurant): void {
-    const index = this.restaurants.findIndex(r => r.id === updatedRestaurant.id);
-    if (index !== -1) {
-      this.restaurants[index] = updatedRestaurant;
-    }
+  updateRestaurant(restaurant: Restaurant): Observable<Restaurant> {
+    return this.http.put<Restaurant>(`${this.apiUrl}/${restaurant.id}`, restaurant);
   }
 
-  deleteRestaurant(id: number): void {
-    this.restaurants = this.restaurants.filter(r => r.id !== id);
+  deleteRestaurant(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
 
-  addComment(id: number, rating: number, text: string): void {
-    const restaurant = this.restaurants.find(r => r.id === id);
-    if (restaurant) {
-      if (!restaurant.averageRatings) {
-        restaurant.averageRatings = [];
-      }
-      restaurant.averageRatings.push({ rating, text, date: new Date() });
-    }
-  }
+  // addRating(restaurantId: number, rating: number, text: string): Observable<Restaurant> {
+  //   const url = `${this.apiUrl}/${restaurantId}/ratings`;
+  //   const newRating = { rating, text, date: new Date().toISOString() };
+  //   return this.http.post<Restaurant>(url, newRating);
+  // }
 }

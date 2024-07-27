@@ -21,7 +21,12 @@ export class RatingDialogComponent {
 
   onSave(): void {
     if (this.rating && this.commentText) {
-      this.dialogRef.close({ rating: this.rating, text: this.commentText });
+      console.log(this.rating);
+      if (this.rating < 1 || this.rating > 5) {
+        alert('Rating must be between 1 and 5!');
+        return;
+      }
+      this.dialogRef.close({ rating: this.rating, text: this.commentText, restaurantId: this.data.restaurantId });
     }
   }
 }
