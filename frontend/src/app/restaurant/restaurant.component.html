@@ -33,6 +33,9 @@
           <button class="btn btn-secondary m-1" (click)="openRatingDialog(restaurant)">Rate</button>
         </td>
       </tr>
+      <tr *ngIf="loading">
+        <td colspan="6">Loading...</td>
+      </tr>
     </tbody>
   </table>
 </div>

@@ -13,7 +13,7 @@ import { RestaurantDialogComponent } from './restaurant-dialog/restaurant-dialog
 export class RestaurantComponent implements OnInit {
   restaurants: Restaurant[];
   visibleComments: Set<number> = new Set<number>(); // Track visible comments by restaurant ID
-
+  loading: boolean = true;
   constructor(
     private restaurantService: RestaurantService,
     public dialog: MatDialog
@@ -26,6 +26,7 @@ export class RestaurantComponent implements OnInit {
   loadRestaurants(): void {
     this.restaurantService.getRestaurants().subscribe(restaurants => {
       this.restaurants = restaurants;
+      this.loading = false;
     });
   }
 
