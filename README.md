@@ -98,11 +98,3 @@ The project is divided into backend and frontend directories:
 ## Configuration
 
 Ensure you have the necessary configurations for both the backend and frontend parts of the application. Backend requires AWS IAM credentials with DynamoDB access. Frontend requires Node.js and Angular CLI.
-
-## Contribution
-
-Feel free to fork the repository and make contributions. Pull requests are welcome.
-
-## License
-
-This project is licensed under the MIT License.
