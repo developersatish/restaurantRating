@@ -1,0 +1,14 @@
+<!-- rating-dialog.component.html -->
+<h1 mat-dialog-title>Add Rating</h1>
+<div mat-dialog-content>
+  <mat-form-field>
+    <input matInput placeholder="Rating" [(ngModel)]="rating" type="number" min="1" max="5">
+  </mat-form-field>
+  <mat-form-field>
+    <textarea matInput placeholder="Comment" [(ngModel)]="commentText"></textarea>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onCancel()">Cancel</button>
+  <button mat-button (click)="onSave()">Save</button>
+</div>

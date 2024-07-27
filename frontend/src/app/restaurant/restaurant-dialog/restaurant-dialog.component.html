@@ -1,0 +1,21 @@
+<h2 mat-dialog-title>{{data.restaurant.id ? 'Edit' : 'Add'}} Restaurant</h2>
+<div mat-dialog-content>
+  <form #restaurantForm="ngForm">
+    <mat-form-field>
+      <input matInput placeholder="Name" [(ngModel)]="data.restaurant.name" name="name" required>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Address" [(ngModel)]="data.restaurant.address" name="address" required>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Description" [(ngModel)]="data.restaurant.description" name="description" required>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Hours" [(ngModel)]="data.restaurant.hours" name="hours" required>
+    </mat-form-field>
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onCancel()">Cancel</button>
+  <button mat-button (click)="onSave()">Save</button>
+</div>

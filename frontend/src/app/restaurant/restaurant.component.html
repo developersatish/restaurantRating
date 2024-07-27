@@ -1,0 +1,38 @@
+<div class="container mt-5">
+  <h2>Restaurants</h2>
+  <button class="btn btn-primary mb-3" (click)="openAddDialog()">Add Restaurant</button>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Address</th>
+        <th>Description</th>
+        <th>Hours</th>
+        <th>Average Rating</th>
+        <th>Rating Comments</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let restaurant of restaurants">
+        <td>{{ restaurant.name }}</td>
+        <td>{{ restaurant.address }}</td>
+        <td>{{ restaurant.description }}</td>
+        <td>{{ restaurant.hours }}</td>
+        <td>{{ calculateAverage(restaurant.averageRatings) | number:'1.1-1' }}</td>
+        <td>
+          <ul>
+            <li *ngFor="let comment of restaurant.averageRatings">
+              <b>{{comment.rating}}</b> - <span>{{comment.text}}</span> - <small>{{comment.date | date:'short'}}</small>
+            </li>
+          </ul>
+        </td>
+        <td>
+          <button class="btn btn-info mr-2" (click)="openEditDialog(restaurant)">Edit</button>
+          <button class="btn btn-danger mr-2" (click)="deleteRestaurant(restaurant.id)">Delete</button>
+          <button class="btn btn-secondary mt-2" (click)="openRatingDialog(restaurant)">Rate</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
