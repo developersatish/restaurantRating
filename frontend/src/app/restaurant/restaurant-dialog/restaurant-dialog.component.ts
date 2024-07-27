@@ -17,7 +17,9 @@ export class RestaurantDialogComponent {
   }
 
   onSave(): void {
-    console.log(this.data);
-    this.dialogRef.close(this.data.restaurant);
+    const restaurant = this.data.restaurant;
+    if (restaurant.name && restaurant.address && restaurant.description && restaurant.hours) {
+      this.dialogRef.close(this.data.restaurant);
+    }
   }
 }

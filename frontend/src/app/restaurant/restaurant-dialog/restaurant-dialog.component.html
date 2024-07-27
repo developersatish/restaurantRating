@@ -2,16 +2,16 @@
 <div mat-dialog-content>
   <form #restaurantForm="ngForm">
     <mat-form-field>
-      <input matInput placeholder="Name" [(ngModel)]="data.restaurant.name" name="name" required>
+      <input matInput placeholder="Name" [(ngModel)]="data.restaurant.name" name="name" maxlength="255" required>
     </mat-form-field>
     <mat-form-field>
-      <input matInput placeholder="Address" [(ngModel)]="data.restaurant.address" name="address" required>
+      <input matInput placeholder="Address" [(ngModel)]="data.restaurant.address" name="address" maxlength="255" required>
     </mat-form-field>
     <mat-form-field>
-      <input matInput placeholder="Description" [(ngModel)]="data.restaurant.description" name="description" required>
+      <input matInput placeholder="Description" [(ngModel)]="data.restaurant.description" name="description" maxlength="500" required>
     </mat-form-field>
     <mat-form-field>
-      <input matInput placeholder="Hours" [(ngModel)]="data.restaurant.hours" name="hours" required>
+      <input matInput placeholder="Hours" [(ngModel)]="data.restaurant.hours" name="hours" maxlength="50" required>
     </mat-form-field>
   </form>
 </div>

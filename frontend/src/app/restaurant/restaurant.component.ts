@@ -79,7 +79,6 @@ export class RestaurantComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
       if (result) {
         const restaurant = this.restaurants.find(t => t.id == result.restaurantId);
         if (!restaurant.averageRatings) {
@@ -91,7 +90,6 @@ export class RestaurantComponent implements OnInit {
           text: result.text
         }
         restaurant.averageRatings.push(comment);
-        console.log(restaurant);
         this.restaurantService.updateRestaurant(restaurant).subscribe(_ => {
           this.loadRestaurants();
         });
